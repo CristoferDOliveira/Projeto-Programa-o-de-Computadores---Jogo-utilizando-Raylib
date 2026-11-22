@@ -1,0 +1,17 @@
+[MAIN]
+TEXT: Escolha sua Classe:
+CHOICE: Mago | #MAGE | 1
+CHOICE: Guerreiro | #WARRIOR | 2
+CHOICE: Arqueiro | #ARCHER | 3
+
+[MAGE]
+TEXT: Voce recebeu:\n* 1 Cajado\n* 1 Pergaminho de fortificar\n* Armadura de Pano (+1 Resistencia)\n* 5 paes\n* 10 moedas
+CHOICE: Continuar jornada | Chapter2/C1.txt | 0
+
+[WARRIOR]
+TEXT: Voce recebeu:\n* 1 Espada\n* 1 Escudo (+1 Resistencia)\n* Armadura de Pano (+1 Resistencia)\n* 5 paes\n* 10 moedas
+CHOICE: Continuar jornada | Chapter2/C1.txt | 0
+
+[ARCHER]
+TEXT: Voce recebeu:\n* 1 Arco\n* 10 Flechas\n* Armadura de Pano (+1 Resistencia)\n* 5 paes\n* 10 moedas
+CHOICE: Continuar jornada | Chapter2/C1.txt | 0

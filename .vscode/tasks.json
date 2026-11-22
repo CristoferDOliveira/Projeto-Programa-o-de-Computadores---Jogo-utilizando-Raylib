@@ -8,15 +8,13 @@
             "args": [
                 "PLATFORM=PLATFORM_DESKTOP",
                 "BUILD_MODE=DEBUG",
-                "PROJECT_NAME=main",
-                "OBJS=GameScript/Main.c GameScript/ScreenManadgement/ScreenManager.c GameScript/GameScreens/MenuScreen.c GameScript/GameScreens/CreatorsScreen.c"
+                "PROJECT_NAME=main"
             ],
             "windows": {
                 "command": "mingw32-make.exe",
                 "args": [
                     "RAYLIB_PATH=C:/raylib/raylib",
                     "PROJECT_NAME=main",
-                    "OBJS=GameScript/Main.c GameScript/ScreenManadgement/ScreenManager.c GameScript/GameScreens/MenuScreen.c GameScript/GameScreens/CreatorsScreen.c",
                     "BUILD_MODE=DEBUG"
                 ]
             },
@@ -34,15 +32,13 @@
             "command": "make",
             "args": [
                 "PLATFORM=PLATFORM_DESKTOP",
-                "PROJECT_NAME=main",
-                "OBJS=GameScript/Main.c GameScript/ScreenManadgement/ScreenManager.c GameScript/GameScreens/MenuScreen.c GameScript/GameScreens/CreatorsScreen.c"
+                "PROJECT_NAME=main"
             ],
             "windows": {
                 "command": "mingw32-make.exe",
                 "args": [
                     "RAYLIB_PATH=C:/raylib/raylib",
-                    "PROJECT_NAME=main",
-                    "OBJS=GameScript/Main.c GameScript/ScreenManadgement/ScreenManager.c GameScript/GameScreens/MenuScreen.c GameScript/GameScreens/CreatorsScreen.c"
+                    "PROJECT_NAME=main"
                 ]
             },
             "group": "build",

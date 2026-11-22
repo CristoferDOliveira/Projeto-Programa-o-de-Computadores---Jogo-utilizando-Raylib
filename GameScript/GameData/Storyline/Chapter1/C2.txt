@@ -1,0 +1,2 @@
+TEXT: Mesmo sua vida sendo pacifica, um dia ocorreu um grande problema... Marcus teve seu elefante PHP sequestrado pelos terriveis homem cobra PYTHON. Por conta disso ele precisa sair em busca de recuperar seu amiguinho agora.
+CHOICE: Next | Chapter1/C3-CLASS.txt | 0

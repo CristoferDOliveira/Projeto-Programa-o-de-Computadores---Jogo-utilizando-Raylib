@@ -25,6 +25,7 @@
 
 # Define required raylib variables
 PROJECT_NAME       ?= game
+OBJS := $(wildcard GameScript/*.c) $(wildcard GameScript/ScreenManadgement/*.c) $(wildcard GameScript/GameScreens/*.c) $(wildcard GameScript/GameData/*.c)
 RAYLIB_VERSION     ?= 6.2
 RAYLIB_PATH        ?= ..\..
 

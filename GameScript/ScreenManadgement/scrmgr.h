@@ -1,22 +1,16 @@
 #ifndef SCRMGR_H
 #define SCRMGR_H
 
-// Lista de todas as telas do jogo
+// Telas principais do jogo (mesmo nome dos botoes)
 typedef enum {
     SCREEN_MENU,
+    SCREEN_PLAY,
     SCREEN_CREATORS
 } GameScreen;
 
-// Inicializa todas as telas do jogo
-void InitScreens(int screenWidth);
-
-// Muda manualmente a tela ativa
+void InitScreens(int screenWidth, int screenHeight);
 void ChangeScreen(GameScreen newScreen);
-
-// Atualiza a lógica da tela que está ativa no momento
 void UpdateCurrentScreen(void);
-
-// Desenha a tela que está ativa no momento
 void DrawCurrentScreen(void);
 
 #endif

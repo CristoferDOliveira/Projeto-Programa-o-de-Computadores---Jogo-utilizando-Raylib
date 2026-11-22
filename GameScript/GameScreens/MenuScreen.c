@@ -1,7 +1,7 @@
 #include "raylib.h"
-#include "../ScreenManadgement/scrmgr.h"
+#include "../ScreenManadgement/menuscr.h"
+#include "../ScreenManadgement/playscr.h"
 
-// Textos e tamanhos de fonte (privados deste arquivo)
 static const char *gameTitle = "Marcus Quest";
 static const char *playText = "PLAY";
 static const char *repoText = "REPOSITORIO";
@@ -10,20 +10,18 @@ static const char *creatorsText = "CRIADORES";
 static const int titleFontSize = 70;
 static const int menuFontSize = 40;
 
-// Variáveis de posição e colisão
 static int titlePosX = 0;
 static Rectangle playBounds = { 0 };
 static Rectangle repoBounds = { 0 };
 static Rectangle creatorsBounds = { 0 };
 
-// Estados de hover do mouse
 static bool isHoveringPlay = false;
 static bool isHoveringRepo = false;
 static bool isHoveringCreators = false;
 
 void InitMenuScreen(int screenWidth) {
     titlePosX = (screenWidth - MeasureText(gameTitle, titleFontSize)) / 2;
-    
+
     int playWidth = MeasureText(playText, menuFontSize);
     int repoWidth = MeasureText(repoText, menuFontSize);
     int creatorsWidth = MeasureText(creatorsText, menuFontSize);
@@ -36,23 +34,22 @@ void InitMenuScreen(int screenWidth) {
 GameScreen UpdateMenuScreen(void) {
     Vector2 mousePos = GetMousePosition();
 
-    // Verifica se o mouse está em cima de cada botão
     isHoveringPlay = CheckCollisionPointRec(mousePos, playBounds);
     isHoveringRepo = CheckCollisionPointRec(mousePos, repoBounds);
     isHoveringCreators = CheckCollisionPointRec(mousePos, creatorsBounds);
 
-    // Verifica os cliques do mouse
     if (isHoveringPlay && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-        // Retorna a tela de jogo quando você criá-la (ex: SCREEN_GAMEPLAY)
+        ResetPlayScreen(); // Garante que o jogo comece do zero
+        return SCREEN_PLAY;
     }
     if (isHoveringRepo && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-        OpenURL("https://github.com");
+        OpenURL("https://github.com/CristoferDOliveira/Projeto-Programa-o-de-Computadores---Jogo-utilizando-Raylib");
     }
     if (isHoveringCreators && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-        return SCREEN_CREATORS; // Avisa o gerenciador para trocar de tela
+        return SCREEN_CREATORS;
     }
 
-    return SCREEN_MENU; // Continua no menu se nada foi clicado
+    return SCREEN_MENU;
 }
 
 void DrawMenuScreen(void) {
