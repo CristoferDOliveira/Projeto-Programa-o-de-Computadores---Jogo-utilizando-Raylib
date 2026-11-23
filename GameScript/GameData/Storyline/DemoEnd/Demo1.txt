@@ -1,0 +1,2 @@
+TEXT: Obrigado por jogar a demo de nosso jogo. O intuito dela foi mostrar brevemente o sistema de combate e itens. De tal modo, espere a release do capítulo um completo se o jogo lhe interessou.
+CHOICE: Next | DemoEnd/Demo2.txt | 0

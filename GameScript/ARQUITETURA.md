@@ -61,11 +61,11 @@ MarcusQuest/
 ```
 
 ### 1.1. Organização por Camadas
-* **Raiz (`MarcusQuest/`):** Centraliza a automação de compilação (`Makefile`, `Makefile.Android`), configurações do workspace (`.vscode/`, `main.code-workspace`), ativos visuais/sonoros (`resources/`), o código-fonte em `GameScript/` e a documentação (`README.md`).
-* **Ponto de Entrada (`GameScript/Main.c`):** Inicializa a janela da Raylib e mantém o loop principal rodando a 60 FPS, delegando o processamento de entrada e a renderização ao gerenciador de telas.
-* **Camada de Apresentação (`GameScript/GameScreens/`):** Reúne os módulos visuais (`MenuScreen.c`, `PlayScreen.c`, `CreatorsScreen.c`), responsáveis exclusivamente por desenhar a interface gráfica e capturar interações do jogador.
-* **Camada de Controle e Interfaces (`GameScript/ScreenManadgement/`):** Contém a máquina de estados global (`ScreenManager.c`) e todos os arquivos de cabeçalho (`.h`), desacoplando as assinaturas de funções e estruturas de dados entre os módulos.
-* **Camada de Lógica e Dados (`GameScript/GameData/`):** Concentra as regras de negócio em C (`Player.c`, `Story.c`, `Combat.c`) e os arquivos externos `.txt` divididos entre `Database/` (configuração de personagens, inimigos e itens) e `Storyline/` (cenas e ramificações da história).
+- **Raiz (`MarcusQuest/`):** Centraliza a automação de compilação (`Makefile`, `Makefile.Android`), configurações do workspace (`.vscode/`, `main.code-workspace`), ativos visuais/sonoros (`resources/`), o código-fonte em `GameScript/` e a documentação (`README.md`).
+- **Ponto de Entrada (`GameScript/Main.c`):** Inicializa a janela da Raylib e mantém o loop principal rodando a 60 FPS, delegando o processamento de entrada e a renderização ao gerenciador de telas.
+- **Camada de Apresentação (`GameScript/GameScreens/`):** Reúne os módulos visuais (`MenuScreen.c`, `PlayScreen.c`, `CreatorsScreen.c`), responsáveis exclusivamente por desenhar a interface gráfica e capturar interações do jogador.
+- **Camada de Controle e Interfaces (`GameScript/ScreenManadgement/`):** Contém a máquina de estados global (`ScreenManager.c`) e todos os arquivos de cabeçalho (`.h`), desacoplando as assinaturas de funções e estruturas de dados entre os módulos.
+- **Camada de Lógica e Dados (`GameScript/GameData/`):** Concentra as regras de negócio em C (`Player.c`, `Story.c`, `Combat.c`) e os arquivos externos `.txt` divididos entre `Database/` (configuração de personagens, inimigos e itens) e `Storyline/` (cenas e ramificações da história).
 
 ---
 
@@ -76,11 +76,11 @@ MarcusQuest/
 - **Por que foi utilizado:** Em vez de concentrar múltiplas condicionais (`if/else`) dentro do `Main.c`, a máquina de estados isola o ciclo de vida de cada tela. O `Main.c` apenas inicializa a janela e executa `UpdateCurrentScreen()` e `DrawCurrentScreen()` a 60 FPS, delegando ao gerenciador a responsabilidade de saber qual módulo deve processar cliques e desenhar na tela naquele instante.
 
 ### 2.2. Encapsulamento com Modificador `static`
-- **O que foi usado:** Variáveis globais restritas ao escopo de arquivo (como `static Player player;` e `static StoryNode currentNode;`).
+- **O que foi usado:** Variáveis globais restritas ao escopo de arquivo (como `static Player player;`, `static CombatState combat;` e `static StoryNode currentNode;`).
 - **Por que foi utilizado:** Em C puro, variáveis declaradas fora de funções têm visibilidade global em todo o programa por padrão. O uso de `static` garante o encapsulamento, impedindo que uma tela acesse ou sobrescreva acidentalmente as coordenadas de botões ou estados internos de outra tela.
 
 ### 2.3. Separação entre Lógica (`Update`) e Renderização (`Draw`)
-- **O que foi usado:** Divisão das funções de cada tela em três etapas: `Init` (cálculo único de posições), `Update` (detecção de colisão do mouse e alteração de estado) e `Draw` (desenho dos elementos).
+- **O que foi usado:** Divisão das funções de cada tela em três etapas: `Init` (cálculo único de posições e reinicialização limpa via `ResetPlayScreen` quando aplicável), `Update` (detecção de colisão do mouse e alteração de estado) e `Draw` (desenho dos elementos).
 - **Por que foi utilizado:** Calcular larguras de texto (`MeasureText`) e verificar cliques dentro do mesmo bloco de desenho prejudica a organização e a performance. Ao pré-calcular as caixas de colisão (`Rectangle`) no `Init`, o loop principal apenas valida `CheckCollisionPointRec` a cada frame.
 
 ### 2.4. Bases de Dados Externas em `.txt` (`Database/` e `Storyline/`)
@@ -88,7 +88,7 @@ MarcusQuest/
 - **Por que foi utilizado:** Como C não possui leitor nativo de JSON ou XML, a adoção de um formato próprio baseado em chaves (`KEY: VALUE`) e seções (`[NOME]`) eliminou dependências externas e permitiu alterar conteúdo e balanceamento sem recompilar o código:
   1. **Personagens e Inimigos (`Database/Characters/player_init.txt` e `sad_mage.txt`):** Armazenam atributos iniciais do protagonista e os status de cada inimigo (`NAME`, `HP`, `DAMAGE`, `AGILITY`, `RESISTANCE`, `REWARD_COINS` e `REWARD_ITEM`). Isso permite criar novos oponentes ou ajustar dificuldades apenas editando arquivos de texto.
   2. **Catálogo de Itens (`Database/Items/items.txt`):** Centraliza a definição dos itens do jogo (identificadores, nomes, categorias, atributos/efeitos e descrições). Facilita a manutenção do inventário e o vínculo com recompensas de combate ou escolhas narrativas sem alterar estruturas fixas no código-fonte.
-  3. **Narrativa e Gatilhos (`Storyline/Prologue/` e `Storyline/Chapter1/`):** Organiza o roteiro por capítulos e cenas (`P1.txt` a `P4.txt`, `CH1.txt`, `C1-1.txt` a `C1-4.txt`), carregando sob demanda apenas o nó atual para economizar memória. O interpretador diferencia saltos internos (prefixo `#`, como `#MAGE`), transições de arquivo (caminhos relativos) e gatilhos de combate.
+  3. **Narrativa e Gatilhos (`Storyline/Prologue/` e `Storyline/Chapter1/`):** Organiza o roteiro por capítulos e cenas (`P1.txt` a `P4.txt`, `CH1.txt`, `C1-1.txt` a `C1-4.txt`), cujo fluxo e ramificações tiveram o **Twine** como ferramenta de esboço inicial antes da conversão para os arquivos `.txt`. O interpretador carrega sob demanda o nó atual, diferencia saltos internos (prefixo `#`, como `#MAGE`), transições de arquivo (caminhos relativos), gatilhos de combate (`COMBAT:...`) e retorno ao menu (`#MENU` / `MENU`, tratado em `PlayScreen.c` com reset da partida para `SCREEN_MENU`).
 
 ### 2.5. Estruturas de Dados e Gestão de Inventário (`Player.c`)
 - **O que foi usado:** `struct` aninhadas (`Player` contendo um vetor estático `InventoryItem inventory[15]`) e algoritmos de busca linear e deslocamento de vetor (*shift*).
@@ -117,4 +117,5 @@ MarcusQuest/
 ## 3. Créditos e Ferramentas de Apoio
 - **Desenvolvimento, Arquitetura e Criação da História:** Cristofer Dvorecky Oliveira (RA: 26020823)
 - **Criação de Personagens e Itens e Revisão de Código:** Augusto do Amarante (RA: 26018423)
+- **Esboço e Prototipação da História:** **Twine**, utilizado como ferramenta de apoio para esboçar o fluxo narrativo e as ramificações da história antes da implementação nos arquivos `.txt`.
 - **Apoio Técnico:** Inteligência Artificial **Google Gemini** utilizada como ferramenta de consulta e auxílio na estruturação da arquitetura de troca de telas (`ScreenManager`), na integração da leitura de arquivos `.txt` com os scripts em C e na criação dos sistemas de **QTE**, **combate por turnos** e **gerenciamento de itens**.

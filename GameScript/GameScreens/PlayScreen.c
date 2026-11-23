@@ -51,6 +51,11 @@ static void TryStartCombatFromTarget(const char *target) {
     }
 }
 
+static bool IsMenuTarget(const char *target) {
+    if (target == NULL) return false;
+    return (strcmp(target, "#MENU") == 0 || strcmp(target, "MENU") == 0);
+}
+
 static void DrawTextWrapped(const char *text, int posX, int posY, int maxWidth, int fontSize, Color color) {
     char buffer[TEXT_BUF_LEN];
     strncpy(buffer, text, sizeof(buffer) - 1);
@@ -198,6 +203,10 @@ GameScreen UpdatePlayScreen(void) {
                     strcpy(nextTarget, combat.loseTarget);
                 }
                 combat.active = false;
+                if (IsMenuTarget(nextTarget)) {
+                    ResetPlayScreen();
+                    return SCREEN_MENU;
+                }
                 if (strncmp(nextTarget, "COMBAT:", 7) == 0) {
                     TryStartCombatFromTarget(nextTarget);
                 } else {
@@ -226,6 +235,10 @@ GameScreen UpdatePlayScreen(void) {
         Rectangle choiceBounds = { 50.0f, 260.0f + (i * 42.0f), 320.0f, 32.0f };
         if (CheckCollisionPointRec(mousePos, choiceBounds) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
             const char *target = node->choices[i].nextTarget;
+            if (IsMenuTarget(target)) {
+                ResetPlayScreen();
+                return SCREEN_MENU;
+            }
             if (strncmp(target, "COMBAT:", 7) == 0) {
                 TryStartCombatFromTarget(target);
             } else {

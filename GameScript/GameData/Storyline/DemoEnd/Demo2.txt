@@ -1,0 +1,2 @@
+TEXT: Para lhe acalmar acerca do final. Se você passou sem enfrentar o mago, considere o final bom, se não, você fez o início de uma rota de combates desnecessários, vamos ver como o jogo reagirá a isso nos próximos capítulos que lancarem. Acesse nosso repositório.
+CHOICE: Retornar ao Menu | #MENU | 0

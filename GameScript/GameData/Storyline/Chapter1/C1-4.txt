@@ -1,2 +1,2 @@
 TEXT: Capitulo 1 em andamento.
-CHOICE: Voltar ao inicio | Prologue/P1.txt | 0
+CHOICE: Voltar ao inicio | DemoEnd/Demo1.txt | 0
