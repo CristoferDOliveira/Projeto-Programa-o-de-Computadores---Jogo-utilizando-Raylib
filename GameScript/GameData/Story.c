@@ -10,13 +10,12 @@
 #define MAX_HEADER_LEN 64
 
 static StoryNode currentNode;
-static char currentFilePath[MAX_PATH_LEN] = "Chapter1/C1.txt";
+static char currentFilePath[MAX_PATH_LEN] = "Prologue/P1.txt";
 
 static void TrimNewline(char *str) {
     int len = (int)strlen(str);
     while (len > 0 && (str[len - 1] == '\n' || str[len - 1] == '\r')) {
-        str[len - 1] = '\0';
-        len--;
+        str[--len] = '\0';
     }
 }
 
@@ -52,9 +51,9 @@ static void LoadSceneSection(const char *relativePath, const char *sectionName) 
 
     if (file == NULL) {
         snprintf(currentNode.text, sizeof(currentNode.text),
-                 "Fim da demo ou arquivo nao encontrado:\n%s\n\nCrie esse arquivo na pasta Storyline para continuar a historia!", fullPath);
+                 "Fim da demo ou arquivo nao encontrado:\n%s\n\nCrie esse arquivo na pasta Storyline para continuar!", fullPath);
         strcpy(currentNode.choices[FIRST_IDX].text, "Voltar ao inicio");
-        strcpy(currentNode.choices[FIRST_IDX].nextTarget, "Chapter1/C1.txt");
+        strcpy(currentNode.choices[FIRST_IDX].nextTarget, "Prologue/P1.txt");
         currentNode.choices[FIRST_IDX].classRewardId = 0;
         currentNode.choiceCount = 1;
         return;
@@ -80,7 +79,7 @@ static void LoadSceneSection(const char *relativePath, const char *sectionName) 
                 if (strcmp(header, sectionName) == 0) {
                     isReadingTargetSection = true;
                 } else if (isReadingTargetSection) {
-                    break; // Ja terminou de ler a secao desejada
+                    break;
                 }
             }
             continue;
@@ -122,7 +121,7 @@ static void LoadSceneSection(const char *relativePath, const char *sectionName) 
 }
 
 void InitStory(void) {
-    strcpy(currentFilePath, "Chapter1/C1.txt");
+    strcpy(currentFilePath, "Prologue/P1.txt");
     LoadSceneSection(currentFilePath, "MAIN");
 }
 
@@ -131,26 +130,41 @@ const StoryNode* GetCurrentStoryNode(void) {
 }
 
 static void ApplyClassRewards(int classId, Player *player) {
-    if (classId == 1) { // Mago
-        AddItem(player, "Cajado", "", 1, EFFECT_NONE, 0);
-        AddItem(player, "Pergaminho de fortificar", "+1 Dano para cajado ao usar (dura 2 turnos)", 1, EFFECT_BUFF_STAFF, 1);
-        AddItem(player, "Armadura de Pano", "Use [O] para equipar (+1 Resistencia)", 1, EFFECT_ADD_RESISTANCE, 1);
+    if (classId == 1) {
+        AddItemById(player, "cajado", 1);
+        AddItemById(player, "pergaminho_fort", 1);
+        AddItemById(player, "armadura_pano", 1);
         player->food += 5;
         player->coins += 10;
-    } 
-    else if (classId == 2) { // Guerreiro
-        AddItem(player, "Espada", "", 1, EFFECT_NONE, 0);
-        AddItem(player, "Escudo", "Use [O] para equipar (+1 Resistencia)", 1, EFFECT_ADD_RESISTANCE, 1);
-        AddItem(player, "Armadura de Pano", "Use [O] para equipar (+1 Resistencia)", 1, EFFECT_ADD_RESISTANCE, 1);
+    }
+    else if (classId == 2) {
+        AddItemById(player, "espada", 1);
+        AddItemById(player, "escudo_madeira", 1);
+        AddItemById(player, "armadura_pano", 1);
         player->food += 5;
         player->coins += 10;
-    } 
-    else if (classId == 3) { // Arqueiro
-        AddItem(player, "Arco", "", 1, EFFECT_NONE, 0);
-        AddItem(player, "Flechas", "", 10, EFFECT_NONE, 0);
-        AddItem(player, "Armadura de Pano", "Use [O] para equipar (+1 Resistencia)", 1, EFFECT_ADD_RESISTANCE, 1);
+    }
+    else if (classId == 3) {
+        AddItemById(player, "arco", 1);
+        AddItemById(player, "flechas", 10);
+        AddItemById(player, "armadura_pano", 1);
         player->food += 5;
         player->coins += 10;
+    }
+}
+
+void NavigateToTarget(const char *target, Player *player) {
+    if (target == NULL || target[FIRST_IDX] == '\0') return;
+
+    if (target[FIRST_IDX] == '#') {
+        LoadSceneSection(currentFilePath, target + 1);
+    } else {
+        if (strcmp(target, "Prologue/P1.txt") == 0 && strcmp(currentFilePath, "Prologue/P1.txt") != 0) {
+            InitPlayer(player);
+        }
+        strncpy(currentFilePath, target, MAX_PATH_LEN - 1);
+        currentFilePath[MAX_PATH_LEN - 1] = '\0';
+        LoadSceneSection(currentFilePath, "MAIN");
     }
 }
 
@@ -163,14 +177,5 @@ void SelectStoryChoice(int choiceIndex, Player *player) {
         ApplyClassRewards(chosen.classRewardId, player);
     }
 
-    if (chosen.nextTarget[FIRST_IDX] == '#') {
-        LoadSceneSection(currentFilePath, chosen.nextTarget + 1);
-    } 
-    else {
-        if (strcmp(chosen.nextTarget, "Chapter1/C1.txt") == 0 && strcmp(currentFilePath, "Chapter1/C1.txt") != 0) {
-            InitPlayer(player);
-        }
-        strcpy(currentFilePath, chosen.nextTarget);
-        LoadSceneSection(currentFilePath, "MAIN");
-    }
+    NavigateToTarget(chosen.nextTarget, player);
 }

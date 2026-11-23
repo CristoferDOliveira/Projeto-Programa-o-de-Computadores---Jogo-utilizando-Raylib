@@ -1,0 +1,2 @@
+TEXT: Voce recebeu um amuleto do cavaleiro!
+CHOICE: Falar com o Taverneiro | Chapter1/C1-3.txt | 0

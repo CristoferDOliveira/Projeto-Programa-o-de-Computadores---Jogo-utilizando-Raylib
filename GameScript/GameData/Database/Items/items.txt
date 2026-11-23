@@ -1,0 +1,7 @@
+ID: cajado | NAME: Cajado | TYPE: WEAPON | STAT: DAMAGE | VAL: 3 | DESC:
+ID: espada | NAME: Espada | TYPE: WEAPON | STAT: DAMAGE | VAL: 4 | DESC:
+ID: arco | NAME: Arco | TYPE: WEAPON | STAT: DAMAGE | VAL: 5 | DESC:
+ID: flechas | NAME: Flechas | TYPE: MISC | STAT: NONE | VAL: 0 | DESC:
+ID: pergaminho_fort | NAME: Pergaminho de fortificar | TYPE: CONSUMABLE | STAT: BUFF_STAFF | VAL: 1 | DESC: +1 Dano para cajado ao usar (dura 2 turnos)
+ID: armadura_pano | NAME: Armadura de Pano | TYPE: ARMOR | STAT: RESISTANCE | VAL: 1 | DESC: Equipavel (+1 Resistencia)
+ID: escudo_madeira | NAME: Escudo | TYPE: SHIELD | STAT: RESISTANCE | VAL: 1 | DESC: Equipavel (+1 Resistencia)

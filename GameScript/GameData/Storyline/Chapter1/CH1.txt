@@ -1,0 +1,2 @@
+TEXT: CAPITULO 1\n\nA Vila
+CHOICE: Iniciar Capitulo | Chapter1/C1-1.txt | 0

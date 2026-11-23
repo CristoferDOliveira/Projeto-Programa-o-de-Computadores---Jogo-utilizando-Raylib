@@ -10,8 +10,8 @@
 
 typedef struct {
     char text[MAX_CHOICE_TEXT];
-    char nextTarget[MAX_TARGET_LEN]; // Arquivo (ex: "Chapter1/C2.txt") ou secao (ex: "#MAGE")
-    int classRewardId;               // 0 = nenhum, 1 = Mago, 2 = Guerreiro, 3 = Arqueiro
+    char nextTarget[MAX_TARGET_LEN];
+    int classRewardId;
 } StoryChoice;
 
 typedef struct {
@@ -23,5 +23,6 @@ typedef struct {
 void InitStory(void);
 const StoryNode* GetCurrentStoryNode(void);
 void SelectStoryChoice(int choiceIndex, Player *player);
+void NavigateToTarget(const char *target, Player *player);
 
 #endif

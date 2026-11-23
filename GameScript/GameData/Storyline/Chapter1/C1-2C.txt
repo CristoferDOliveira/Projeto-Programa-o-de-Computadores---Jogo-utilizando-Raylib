@@ -1,0 +1,2 @@
+TEXT: Marcus vai ate o cavaleiro que parecia bebado em uma das mesas, mas por ser um cavaleiro pode saber de algo. No fim eles so ficaram um tempo conversando e Marcus nao quer mais falar com o mago pois ele fez mal ao cavaleiro.
+CHOICE: Next | Chapter1/C1-2C2.txt | 0

@@ -1,0 +1,4 @@
+TEXT: Ao entrar na taverna, Marcus nota algumas pessoas para conversar, mas quem seria melhor?
+CHOICE: Taverneiro | Chapter1/C1-3.txt | 0
+CHOICE: Cavaleiro Bebado | Chapter1/C1-2C.txt | 0
+CHOICE: Mago Triste | Chapter1/C1-2M.txt | 0

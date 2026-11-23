@@ -1,0 +1,2 @@
+TEXT: Marcus pega seus equipamentos e entao se retira de sua casa. Seu primeiro destino e uma pequena taverna aonde ele ira pedir informacao sobre aonde os PYTHON foram.
+CHOICE: Next | Chapter1/CH1.txt | 0

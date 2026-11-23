@@ -1,0 +1,2 @@
+TEXT: Marcus anda de sua casa ate a taverna e nota que pelo caminho as pessoas parecem extremamente preocupadas por conta da invasao dos PYTHON, mas ele segue focado em seu objetivo.
+CHOICE: Entrar na taverna | Chapter1/C1-2.txt | 0

@@ -1,0 +1,2 @@
+TEXT: Voce tenta conversar com o mago, mas ele parece muito irritado e quer uma briga com voce.
+CHOICE: Ir ao combate | Chapter1/C1-2MC.txt | 0

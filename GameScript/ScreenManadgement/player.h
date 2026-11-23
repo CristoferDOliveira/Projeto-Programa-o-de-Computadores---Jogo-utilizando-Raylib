@@ -5,21 +5,40 @@
 
 #define MAX_UNIQUE_ITEMS 15
 #define MAX_ITEM_STACK 10
+#define MAX_CATALOG_ITEMS 50
 
-// Efeitos que um item pode ter ao apertar o botao [O]
+#define ID_LEN 32
+#define NAME_LEN 40
+#define DESC_LEN 128
+
 typedef enum {
-    EFFECT_NONE,
-    EFFECT_ADD_RESISTANCE,
-    EFFECT_BUFF_STAFF
-} ItemEffectType;
+    ITEM_MISC,
+    ITEM_CONSUMABLE,
+    ITEM_WEAPON,
+    ITEM_ARMOR,
+    ITEM_SHIELD
+} ItemType;
+
+typedef enum {
+    STAT_NONE,
+    STAT_RESISTANCE,
+    STAT_BUFF_STAFF,
+    STAT_DAMAGE
+} StatBonusType;
 
 typedef struct {
-    char name[40];
-    char description[128]; // Se vazio (""), o botao [S] nao aparece
+    char id[ID_LEN];
+    char name[NAME_LEN];
+    ItemType type;
+    StatBonusType statBonus;
+    int bonusValue;
+    char description[DESC_LEN];
+} ItemDef;
+
+typedef struct {
+    char itemId[ID_LEN];
     int quantity;
-    ItemEffectType effect;
-    int effectValue;
-} InventoryItem;
+} InventorySlot;
 
 typedef struct {
     int currentHp;
@@ -27,20 +46,40 @@ typedef struct {
     int coins;
     int food;
 
-    // Status iniciais (todos comecam em 0)
-    int strength;   // Forca
-    int agility;    // Agilidade
-    int wisdom;     // Sabedoria
-    int charisma;   // Carisma
-    int resistance; // Resistencia
+    int baseStrength;
+    int baseAgility;
+    int baseWisdom;
+    int baseCarisma;
+    int baseResistance;
 
-    InventoryItem inventory[MAX_UNIQUE_ITEMS];
-    int uniqueItemCount; // Conta quantos slots unicos estao ocupados (ex: 1/15)
+    int totalStrength;
+    int totalAgility;
+    int totalWisdom;
+    int totalCarisma;
+    int totalResistance;
+
+    int staffBuffTurns;
+    int staffBuffBonus;
+
+    char equippedWeaponId[ID_LEN];
+    char equippedArmorId[ID_LEN];
+    char equippedShieldId[ID_LEN];
+
+    InventorySlot inventory[MAX_UNIQUE_ITEMS];
+    int uniqueItemCount;
 } Player;
 
+void InitItemCatalog(void);
+const ItemDef* GetItemDef(const char *itemId);
+
 void InitPlayer(Player *player);
-void AddItem(Player *player, const char *name, const char *desc, int amount, ItemEffectType effect, int effectValue);
-void RemoveItem(Player *player, int index, int amount);
-void UseItem(Player *player, int index);
+void RecalculateStats(Player *player);
+int GetWeaponDamage(const Player *player);
+void TickStaffBuff(Player *player);
+
+void AddItemById(Player *player, const char *itemId, int amount);
+void RemoveItemAt(Player *player, int index, int amount);
+bool UseOrEquipItemAt(Player *player, int index);
+void UnequipSlot(Player *player, ItemType slotType);
 
 #endif

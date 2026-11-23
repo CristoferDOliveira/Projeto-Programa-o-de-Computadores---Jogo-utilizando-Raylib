@@ -1,0 +1,2 @@
+TEXT: Ao ir ate o Taverneiro Marcus se senta e pede uma dose de vodka. Apos isso ele questiona acerca dos PYTHon e se o homem sabe para onde foram.\n\nTaverneiro: "Bem, eu vi eles correndo por toda parte. No entanto ouvindo alugns bebados por aqui, fiquei sabendo que eles contrataram um cara para poder impedir que saiam da vila por agora, deve estar no portao."
+CHOICE: Next | Chapter1/C1-4.txt | 0

@@ -1,0 +1,2 @@
+TEXT: O mago avanca com seu cajado! Prepare-se para a luta.
+CHOICE: Lutar | COMBAT: sad_mage.txt; Chapter1/C1-3.txt; Prologue/P1.txt | 0
