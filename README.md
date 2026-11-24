@@ -2,6 +2,10 @@
 
 RPG narrativo em **linguagem C** desenvolvido com **Raylib**, focado em escolhas com ramificações, gestão de personagem e inventário, e combate por turnos com *Quick Time Events* (QTE).
 
+<div align="center">
+  <img src="resources/EXAMPLES/MainScreen.png" alt="Tela inicial do Marcus Quest" width="450" />
+</div>
+
 ---
 
 ## Sinopse
@@ -36,12 +40,22 @@ A janela do jogo foi pensada com proporção compacta (`800x450`) para **simular
   - **`[X]`:** Remove `1` unidade do item selecionado (reorganizando os slots restantes).
   - **`[S]`:** Exibe ou oculta a caixa com a descrição do item (quando o item possui descrição cadastrada).
 
+<div align="center">
+  <img src="resources/EXAMPLES/Inventory.png" alt="Tela de personagem e inventário" width="450" />
+</div>
+
 ### 3. Combate por Turnos e QTE
 - **Iniciativa:** A ordem inicial considera a agilidade (`totalAgility` do jogador em comparação à agilidade do inimigo).
 - **Turno do jogador:** Permite atacar o inimigo, usar itens/comida respeitando as regras do turno e acompanhar a vida e os estados do confronto.
 - **Defesa ativa (QTE):** Quando o inimigo ataca, abre-se uma janela curta de reação rápida (**`0.7s`**) com uma direção de esquiva sorteada (**esquerda** ou **direita**):
   - **Acertar a esquiva no tempo:** Reduz pela metade o dano recebido.
   - **Errar ou deixar o tempo esgotar:** Aplica o dano integral ajustado pela resistência do jogador (respeitando o dano mínimo de `1`).
+
+<div align="center">
+  <img src="resources/EXAMPLES/Fight1.png" alt="Tela padrão de combate por turnos" width="380" />
+  <img src="resources/EXAMPLES/Fight2.png" alt="Tela de esquiva durante o combate (QTE)" width="380" />
+</div>
+
 - **Fim do combate:** Ao vencer ou ser derrotado, clique no botão de continuar para receber as recompensas configuradas do inimigo (quando aplicável) e seguir para o próximo nó narrativo (`winTarget` / `loseTarget`).
 
 ---
@@ -59,24 +73,4 @@ A janela do jogo foi pensada com proporção compacta (`800x450`) para **simular
    make
    ```
    *(Caso queira recompilar do zero, você pode limpar os objetos anteriores com `make clean` e rodar `make` novamente.)*
-3. Execute o binário gerado a partir da pasta raiz `MarcusQuest/` (importante para que os caminhos relativos de `GameScript/GameData/` e `resources/` sejam encontrados corretamente):
-   ```bash
-   ./MarcusQuest
-   ```
-   *(No Windows, caso o executável seja gerado com extensão `.exe`, execute `.\MarcusQuest.exe` no terminal.)*
-
-### Caminho para o Executável
-- **Executável principal (build padrão via `Makefile` na raiz do projeto):**
-  - Linux / macOS: `./MarcusQuest` (caminho completo relativo à raiz: `MarcusQuest/MarcusQuest`)
-  - Windows: `.\MarcusQuest.exe` (caminho completo relativo à raiz: `MarcusQuest\MarcusQuest.exe`)
-
-> **Dica:** Sempre rode o executável tendo a pasta raiz `MarcusQuest/` como diretório de trabalho atual, pois o jogo carrega os arquivos de `GameScript/GameData/Database/`, `GameScript/GameData/Storyline/` e `resources/` por caminhos relativos.
-
----
-
-## Agradecimentos e Créditos
-- **Agradecimento Especial:** Ao professor **Marcos**, da **UEPG**, pela oportunidade de criar um jogo simples na disciplina e pela inspiração para a história do protagonista.
-- **Desenvolvimento, Arquitetura e Criação da História:** Cristofer Dvorecky Oliveira (RA: 26020823)
-- **Criação de Personagens e Itens e Revisão de Código:** Augusto do Amarante (RA: 26018423)
-- **Esboço e Prototipação da História:** Twine
-- **Apoio Técnico:** Google Gemini
+3. Execute o binário gerado a partir da pasta raiz
